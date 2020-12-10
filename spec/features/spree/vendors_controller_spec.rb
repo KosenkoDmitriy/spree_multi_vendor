@@ -84,6 +84,7 @@ describe "vendor signup process" do
     expect(vendor.stock_locations.last.backorderable_default).to eq(false)
     expect(vendor.stock_locations.last.propagate_all_variants).to eq(false)
     expect(vendor.stock_locations.last.default).to eq(false)
+    expect(vendor.stock_locations.last.state.name).to eq(state.name)
 
     expect(Spree::StockLocation.last.name).to eq('Stock Name')
   end
