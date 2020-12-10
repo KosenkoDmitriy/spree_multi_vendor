@@ -1,4 +1,7 @@
 en:
+  storefront:
+    buttons:
+      request_vendor_account: "REQUEST VENDOR ACCOUNT"
   activerecord:
     models:
       spree/vendor:

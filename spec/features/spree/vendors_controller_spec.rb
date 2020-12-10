@@ -10,7 +10,6 @@ describe "vendor signup process" do
   let!(:state2) {FactoryBot.create(:spree_state, name: 'Ontario', country: country2)}
   let!(:state) {FactoryBot.create(:spree_state, name: 'Scotland', country: country)}
   let!(:store) {Spree::Store.create(
-    # id: 1,
     name: "Spree Demo Site",
     url: "demo.spreecommerce.org",
     meta_description: "Spree Commerce is an open source Ecommerce framework decision makers want, developers enjoy.",
@@ -63,10 +62,8 @@ describe "vendor signup process" do
     fill_in :spree_vendor_user_password_confirmation, with: 'password'
 
     click_on(I18n.t('storefront.buttons.request_vendor_account'))
-    # expect(page).not_to have_text(I18n.t('storefront.buttons.request_vendor_account'))
     expect(page).to have_text(I18n.t(:'devise.user_registrations.inactive_signed_up', reason: 'not yet activated'))
     
-    # todo: write test for vendors_controller_spec.rb
     user = Spree::User.last
     vendor = user.vendors.last
     stock_location = vendor.stock_locations.last
@@ -83,6 +80,10 @@ describe "vendor signup process" do
     expect(vendor.stock_locations.last.country).to eq(country)
     expect(vendor.stock_locations.last.state).to eq(state)
     expect(vendor.stock_locations.last.vendor).to eq(vendor)
+    expect(vendor.stock_locations.last.active).to eq(true)
+    expect(vendor.stock_locations.last.backorderable_default).to eq(false)
+    expect(vendor.stock_locations.last.propagate_all_variants).to eq(false)
+    expect(vendor.stock_locations.last.default).to eq(false)
 
     expect(Spree::StockLocation.last.name).to eq('Stock Name')
   end
