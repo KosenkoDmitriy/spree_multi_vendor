@@ -77,9 +77,13 @@ describe "vendor signup process" do
     expect(vendor.notification_email).to eq(vendor_email)
     expect(vendor.contact_us).to have_text(vendor_contact_email)
     expect(user.email).to eq(user_email)
-    expect(stock_location.name).to eq('Stock Name')
-    expect(stock_location.country).to eq(country)
-    expect(stock_location.state).to eq(state)
-    expect(stock_location.vendor).to eq(vendor)
+    
+    expect(vendor.stock_locations.count).to eq(1)
+    expect(vendor.stock_locations.last.name).to eq('Stock Name')
+    expect(vendor.stock_locations.last.country).to eq(country)
+    expect(vendor.stock_locations.last.state).to eq(state)
+    expect(vendor.stock_locations.last.vendor).to eq(vendor)
+
+    expect(Spree::StockLocation.last.name).to eq('Stock Name')
   end
 end

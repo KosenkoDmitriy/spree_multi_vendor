@@ -4,7 +4,6 @@ class Spree::VendorsController < Spree::StoreController
     # @countries_array = Spree::Country.all.map { |country| [country.name, country.id] }
     # @states_array = Spree::State.all.map { |state| [state.name, state.id] }
     @vendor = Spree::Vendor.new
-    # @vendor.stock_locations.build
   end
 
   def create
@@ -17,13 +16,10 @@ class Spree::VendorsController < Spree::StoreController
       @vendor.users << @user
       @vendor.build_image(attachment: all_params[:image])
       if @vendor.save
-        @stock_location.vendor = @vendor
-        if @stock_location.save
-          flash[:notice] = I18n.t(:'devise.user_registrations.inactive_signed_up', reason: 'not yet activated')
-          redirect_to root_path
-        else
-          flash.now[:error] = 'error - can not create stock location'
-        end        
+        # @vendor.stock_locations = [@stock_location]
+        @vendor.stock_locations.last.update_attributes(stock_location_params)
+        flash[:notice] = I18n.t(:'devise.user_registrations.inactive_signed_up', reason: 'not yet activated')
+        redirect_to root_path
       else
         flash.now[:error] = 'error - can not create the vendor'
       end
