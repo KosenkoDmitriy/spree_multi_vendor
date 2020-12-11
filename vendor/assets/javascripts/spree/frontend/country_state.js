@@ -36,8 +36,7 @@ function update_state(region, done) {
   })
 }
 
-jQuery(function ($) {
-  $(document).on('ready turbolinks:load', function () {
-    $('span#country .select2').on('change', function () { update_state(''); });
-  })
-});
+$(document).on('ready turbolinks:load', function () {
+  // $(document).on('ready page:load page:change', function () {
+  $('span#country .select2').on('change', function () { update_state(''); });
+})
