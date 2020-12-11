@@ -38,23 +38,4 @@ function update_state(region, done) {
 
 $(document).ready(function () {
   $('span#country .select2').on('change', function () { update_state(''); });
-  // $('#spree_vendor_stock_location_country_id').change(function () {
-  //   let country_id = parseInt($('#spree_vendor_stock_location_country_id option:selected').val())
-  //   update_state('', function () {
-  //     let state_id = parseInt($('#spree_vendor_stock_location_state_id option:selected').val())
-  //     console.log('state_id ' + state_id)
-  //     $('#spree_vendor_stock_location_state_id').select2('val', state_id)
-  //   })
-  // })
-  // $('#spree_vendor_stock_location_country_id').change(function () {
-  //   let country_id = parseInt($('#spree_vendor_stock_location_country_id option:selected').val())
-  //   console.log('country id ' + country_id)
-  //   $('#spree_vendor_stock_location_country_id').select2('val', country_id).promise().done(function () {
-  //     update_state('', function () {
-  //       let state_id = parseInt($('#spree_vendor_stock_location_state_id option:selected').val())
-  //       console.log('state_id ' + state_id)
-  //       $('#spree_vendor_stock_location_state_id').select2('val', state_id)
-  //     })
-  //   })
-  // })
 });

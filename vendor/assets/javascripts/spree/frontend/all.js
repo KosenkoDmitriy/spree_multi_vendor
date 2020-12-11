@@ -11,3 +11,4 @@
 //= require spree/frontend
 
 //= require_tree .
+//= require spree/frontend/country_state

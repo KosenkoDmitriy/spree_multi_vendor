@@ -3,9 +3,9 @@ require 'spec_helper'
 
 # describe "vendor signup process", js: true do
 describe "vendor signup process" do
-  let(:file_name) {'logo.png'} 
-  # let(:file) {Rails.root.join('app', 'assets', 'images', file_name)} 
-  let(:file) {File.join(File.dirname(__FILE__), '..', '..', '..', 'app', 'assets', 'images', file_name)}
+  let(:file_name) {'vendor_photo.png'} 
+  let(:file) {Rails.root.join('vendor', 'assets', 'images', 'spree', 'frontend', file_name)} 
+  # let(:file) {File.join(File.dirname(__FILE__), '..', '..', '..', 'app', 'assets', 'images', file_name)}
   let!(:country2) {FactoryBot.build(:spree_country, name: 'Canada', iso_name: 'ca', iso: 'ca', iso3: 'ca')}
   let!(:country) {FactoryBot.create(:spree_country, name: 'United Kindom')}
   let!(:state2) {FactoryBot.create(:spree_state, name: 'Ontario', country: country2)}
