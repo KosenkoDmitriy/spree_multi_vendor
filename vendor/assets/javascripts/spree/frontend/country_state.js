@@ -37,6 +37,5 @@ function update_state(region, done) {
 }
 
 $(document).on('ready turbolinks:load', function () {
-  // $(document).on('ready page:load page:change', function () {
   $('span#country .select2').on('change', function () { update_state(''); });
 })
