@@ -11,7 +11,7 @@ tmp
 nbproject
 pkg
 *.sw?
-spec/dummy
+#spec/dummy
 .rvmrc
 .sass-cache
 public/spree
