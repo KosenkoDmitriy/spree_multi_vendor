@@ -5,7 +5,6 @@ function update_state(region, done) {
   var region = ''
   // var country = $('span#' + region + 'country .select2').select2('val')
   var country = $('span#' + region + 'country .select2 option:selected').val()
-  console.log('country', country)
   var stateSelect = $('span#' + region + 'state select.select2')
   var stateInput = $('span#' + region + 'state input.state_name')
 
