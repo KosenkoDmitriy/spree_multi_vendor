@@ -10,7 +10,7 @@
         <%=I18n.t('storefront.buttons.request_vendor_account')%>
       </h3>
       <div id="new-vendor" class="panel-body" data-hook="login">
-        <%= form_with model: [:spree, @vendor], scope: :spree_vendor, url: spree.vendors_path, html: {multipart: true} do |f| %>
+        <%= form_with model: [:spree, @vendor], scope: :spree_vendor, url: spree.vendors_path, local: true, html: {multipart: true} do |f| %>
 
         <div data-hook="signup_inside_form">
           <div class="form-group">
@@ -96,7 +96,7 @@
               <div class="form-group mb-4">
                 <p class="form-group checkout-content-inner-field">
                   <label for="spree_vendor_image">Logo*</label>
-                  <input type="file" name="spree_vendor[image]" id="spree_vendor_image"
+                  <input type="file" required name="spree_vendor[image]" id="spree_vendor_image"
                     value=<%=params.include?(:spree_vendor) ? params[:spree_vendor][:image] : '' %>>
                 </p>
               </div>
