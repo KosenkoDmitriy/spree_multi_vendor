@@ -14,7 +14,10 @@ class Spree::VendorsController < Spree::StoreController
       @user.save  
       @vendor.contact_us = contact_details_params.to_h.map{|key,value| key + ': ' + value }.join("\n")
       @vendor.users << @user
-      @vendor.build_image(attachment: all_params[:image])
+      begin
+        @vendor.build_image(attachment: all_params[:image])
+      rescue
+      end
       if @vendor.save
         # @vendor.stock_locations = [@stock_location]
         last_stock_location = @vendor.stock_locations.last
