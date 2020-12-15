@@ -1,0 +1,62 @@
+.spree-btn {
+  text-transform:uppercase;
+  font-weight:bold;
+  font-size:0.875rem;
+  line-height:1.29;
+  letter-spacing:0.35px;
+  text-align:center;
+  border-radius:0
+ }
+ .spree-btn.btn-primary {
+  background-color:#ffffff;
+  border-color:#151314;
+  color:#151314;
+  line-height:2.32;
+  letter-spacing:1.4px;
+  font-weight:500;
+  text-transform:none
+ }
+ @media (min-width: 768px) {
+  .spree-btn.btn-primary {
+   font-size:1.5rem
+  }
+ }
+ @media (min-width: 992px) {
+  .spree-btn.btn-primary {
+   border-width:3px;
+   font-size:1.75rem
+  }
+ }
+ .spree-btn.btn-outline-primary {
+  border-width:2px
+ }
+ .spree-btn.btn-outline-primary:hover {
+  color:white
+ }
+ @media (min-width: 576px) {
+  .spree-btn {
+   padding-top:14px;
+   padding-bottom:14px
+  }
+  .spree-btn.btn-primary {
+   font-size:1.75rem
+  }
+  .spree-btn.btn-outline-primary {
+   font-size:1.75rem
+  }
+ }
+ @media (min-width: 992px) {
+  .spree-btn {
+   padding-top:6px;
+   padding-bottom:6px
+  }
+  .spree-btn.btn-primary {
+   font-size:1.5rem;
+   line-height:1.83;
+   letter-spacing:0.6px
+  }
+  .spree-btn.btn-outline-primary {
+   font-size:1.25rem
+  }
+ }
+ 

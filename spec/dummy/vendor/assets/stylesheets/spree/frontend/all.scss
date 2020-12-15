@@ -13,11 +13,21 @@
  * require_tree .
 */
 
-// $body-bg: #000;
-// $body-color: #111;
 
+// .spree-btn.btn-primary {
+//   background-color: #ffffff;
+//   border-color: #151314;
+//   color: #151314;
+//   line-height: 2.32;
+//   letter-spacing: 1.4px;
+//   font-weight: 500;
+//   text-transform: none;
+// }
 
 @import "spree/frontend/variables/variables";
+@import "spree/frontend/fonts";
+@import "spree/frontend/custom";
+
 // @import "spree/frontend/variables/bootstrap-overrides";
 // @import "spree/frontend/variables/helper-variables";
 // @import "bootstrap";
