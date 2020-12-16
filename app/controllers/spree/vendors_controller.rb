@@ -9,6 +9,7 @@ class Spree::VendorsController < Spree::StoreController
   def create
     @user = Spree::User.new(user_params)
     @user.spree_roles << Spree::Role.find_or_create_by(name: 'vendor') if !@user.has_spree_role?('vendor')
+    @user.phone_number = contact_details_params[:phone]
     @stock_location = Spree::StockLocation.new(stock_location_params)
     @vendor = Spree::Vendor.new(vendor_params)
     if @user.valid? && @vendor.valid? && @stock_location.valid?
