@@ -21,3 +21,4 @@ gemfiles/*.gemfile.lock
 spec/dummy/storage
 spec/dummy/db/spree_development.sqlite3
 spec/dummy/db/spree_test.sqlite3
+test.log
