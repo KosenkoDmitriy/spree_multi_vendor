@@ -7,7 +7,23 @@ class Spree::VendorsController < Spree::StoreController
   end
 
   def create
-    @user = Spree::User.new(user_params)
+    if user_params[:password] != user_params[:password_confirmation]
+      flash[:error] = 'password confirmation does not match password'
+      render action: 'new'
+      return
+    end
+    
+    if Spree::User.exists?(email: user_params[:email])
+      @user = Spree::User.find_by(email: user_params[:email])
+      if !@user.valid_password?(user_params[:password])
+        flash[:error] = 'Invalid password'
+        render action: 'new'
+        return
+      end
+    else
+      @user = Spree::User.new(user_params)
+    end
+    
     @user.spree_roles << Spree::Role.find_or_create_by(name: 'vendor') if !@user.has_spree_role?('vendor')
     @stock_location = Spree::StockLocation.new(stock_location_params)
     @vendor = Spree::Vendor.new(vendor_params)
