@@ -30,6 +30,20 @@ class Spree::VendorsController < Spree::StoreController
         flash.now[:error] = 'error - can not create the vendor'
       end
     else
+      @vendor.valid?
+      @user.valid?
+      @stock_location.valid?
+      message=''
+      if @vendor.errors.any?
+        message += 'Vendor Account Details: ' + @vendor.errors.full_messages.compact * ' and ' + '. '
+      end
+      if @user.errors.any?
+        message += 'Account Details: ' + @user.errors.full_messages.compact * ' and ' + '. '
+      end
+      if @stock_location.errors.any?
+        message += 'Stock Location: ' + @stock_location.errors.full_messages.compact * ' and ' + '. '
+      end
+      flash.now[:error] = message
       render action: 'new'
     end
   end
