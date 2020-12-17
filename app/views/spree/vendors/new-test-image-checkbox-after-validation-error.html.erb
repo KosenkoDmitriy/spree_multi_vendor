@@ -25,10 +25,15 @@
                       <%= hidden_field_tag :uploaded_file_headers, params[:uploaded_file_headers] %>
                       <%= hidden_field_tag :uploaded_file_content_type, params[:uploaded_file_content_type] %>
                       <%= hidden_field_tag :uploaded_file_original_filename, params[:uploaded_file_original_filename] %>
-                      <%#= f.file_field :image, title: ' ', value: params[:image] ? params[:image] : '' #%>
-                      <%#= f.file_field :image, title: ' ', value: '' #%>
+                      <%= f.file_field :image, title: ' ', hide_label: true, style: "color:transparent; width:80px;" %>
+                      <%#= f.hidden_field :image, value: f.object.image.attachment.signed_id if @vendor.image.attachment.attached? #%>
+                      <%#= f.file_field :image, title: ' ', value: '', hide_label: true #%>
+                      <%#= Rails.application.routes.url_helpers.rails_blob_path(@vendor.image, disposition: 'attachment') #%>
                     <% else %>
-                      <%= f.file_field :image, required: true, value: params[:spree_vendor] && params[:spree_vendor][:image] ? params[:spree_vendor][:image] : '' %>
+                      <%#= f.hidden_field :image, value: f.object.image.attachment.signed_id if @vendor.image.attachment.attached? #%>
+                      <%= f.file_field :image, required: true, title: "&nbsp;", value: '', hide_label: true %>
+                     
+                      <%#= f.file_field :image, required: true, hide_label: true, value: params[:spree_vendor] && params[:spree_vendor][:image] ? params[:spree_vendor][:image] : '' #%>
                     <% end %>
                 </p>
               </div>

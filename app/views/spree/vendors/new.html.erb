@@ -10,7 +10,7 @@
         <%=I18n.t('storefront.buttons.request_vendor_account')%>
       </h3>
       <div id="new-vendor" class="panel-body" data-hook="login">
-        <%= form_with model: [:spree, @vendor], scope: :spree_vendor, url: spree.vendors_path, local: true, html: {multipart: true} do |f| %>
+        <%= form_with model: [:spree, @vendor], scope: :spree_vendor, url: spree.vendors_path, method: :post, local: true, html: {multipart: true} do |f| %>
 
         <div data-hook="signup_inside_form">
           <div class="form-group">
@@ -96,8 +96,15 @@
               <div class="form-group mb-4">
                 <p class="form-group checkout-content-inner-field">
                   <label for="spree_vendor_image">Logo*</label>
-                  <input type="file" required name="spree_vendor[image]" id="spree_vendor_image"
-                    value=<%=params.include?(:spree_vendor) ? params[:spree_vendor][:image] : '' %>>
+                    <% if params[:uploaded_file].present? %>  
+                      <%= text_area_tag(:uploaded_file, StringIO.new(CGI.escape(params[:uploaded_file])), style: 'display: none;') %>
+                      <%= hidden_field_tag :uploaded_file_headers, params[:uploaded_file_headers] %>
+                      <%= hidden_field_tag :uploaded_file_content_type, params[:uploaded_file_content_type] %>
+                      <%= hidden_field_tag :uploaded_file_original_filename, params[:uploaded_file_original_filename] %>
+                      <%= f.file_field :image, title: ' ', hide_label: true, style: "color:transparent; width:80px;" %>
+                    <% else %>
+                      <%= f.file_field :image, required: true, title: "&nbsp;", value: '', hide_label: true %>
+                    <% end %>
                 </p>
               </div>
             </div>
@@ -115,13 +122,13 @@
             <h4 class="my-4">Stock Location</h4>
 
             <fieldset>
+
               <div>
+                <%= f.fields_for :stock_location, @vendor.stock_locations do |f_stock| %>
 
                 <div class="form-group" data-hook="stock_location_names">
                   <div class="mb-4" data-hook="stock_location_name">
-                    <input class="form-control spree-flat-input" required="required" placeholder="Name*" type="text"
-                      name="spree_vendor[stock_location][name]" id="spree_vendor_stock_location_name"
-                      value=<%=params.include?(:spree_vendor) && params[:spree_vendor].include?(:stock_location) ? params[:spree_vendor][:stock_location][:name] : '' %>>
+                    <%= f_stock.text_field :name, required: true, placeholder: 'Name*', class: 'form-control spree-flat-input', value: params.include?(:spree_vendor) && params[:spree_vendor].include?(:stock_location) ? params[:spree_vendor][:stock_location][:name] : '' %>
                   </div>
                 </div>
 
@@ -130,14 +137,10 @@
 
                   <div class="spree-checkbox-container mb-3" data-hook="stock_location_active">
                     <div class="spree-checkbox">
-                      <input name="spree_vendor[stock_location][active]" type="hidden" value="0">
-                      <input type="checkbox" value="1" checked="checked" name="spree_vendor[stock_location][active]"
-                        id="spree_vendor_stock_location_active">
-                      <label for="spree_vendor_stock_location_active">Active</label>
+                      <%= f_stock.check_box :active, checked: params[:spree_vendor] && params[:spree_vendor][:stock_location] && params[:spree_vendor][:stock_location][:active] ? params[:spree_vendor][:stock_location][:active].to_i > 0 ? true : false : true %>
+                      <%= f_stock.label :active, 'Active' %>
                     </div>
-
-                    <label class="spree-checkbox-label text-secondary w-100"
-                      for="spree_vendor_stock_location_active">Active</label>
+                    <%= f_stock.label :active, 'Active', class: 'spree-checkbox-label text-secondary w-100' %>
                   </div>
 
                   <div class="spree-checkbox-container mb-3" data-hook="stock_location_default">
@@ -146,37 +149,29 @@
                       <input type="checkbox" value="1" name="spree_vendor[stock_location][default]"
                         id="spree_vendor_stock_location_default">
                       <label for="spree_vendor_stock_location_default">Default</label>
+                      <%= f_stock.check_box :default, checked: params[:spree_vendor] && params[:spree_vendor][:stock_location] && params[:spree_vendor][:stock_location][:default] ? params[:spree_vendor][:stock_location][:default].to_i > 0 ? true : false : false %>
+                      <%= f_stock.label :default, 'Default' %>
                     </div>
-
-                    <label class="spree-checkbox-label text-secondary w-100"
-                      for="spree_vendor_stock_location_default">Default</label>
+                    <%= f_stock.label :default, 'Default', class: 'spree-checkbox-label text-secondary w-100' %>
                   </div>
 
                   <div class="spree-checkbox-container mb-3" data-hook="stock_location_backorderable_default">
                     <div class="spree-checkbox">
-                      <input name="spree_vendor[stock_location][backorderable_default]" type="hidden" value="0">
-                      <input type="checkbox" value="1" name="spree_vendor[stock_location][backorderable_default]"
-                        id="spree_vendor_stock_location_backorderable_default">
-                      <label for="spree_vendor_stock_location_backorderable_default">Backorderable default</label>
+                      <%= f_stock.check_box :backorderable_default, checked: params[:spree_vendor] && params[:spree_vendor][:stock_location] && params[:spree_vendor][:stock_location][:backorderable_default] ? params[:spree_vendor][:stock_location][:backorderable_default].to_i > 0 ? true : false : false %>
+                      <%= f_stock.label :backorderable_default, 'Backorderable default' %>
                     </div>
-
-                    <label class="spree-checkbox-label text-secondary w-100"
-                      for="spree_vendor_stock_location_backorderable_default">Backorderable default</label>
+                    <%= f_stock.label :backorderable_default, 'Backorderable default', class: 'spree-checkbox-label text-secondary w-100' %>
                   </div>
 
                   <div class="spree-checkbox-container mb-3" data-hook="stock_location_propagate_all_variants">
                     <div class="spree-checkbox">
-                      <input name="spree_vendor[stock_location][propagate_all_variants]" type="hidden" value="0">
-                      <input type="checkbox" value="1" name="spree_vendor[stock_location][propagate_all_variants]"
-                        id="spree_vendor_stock_location_propagate_all_variants">
-                      <label for="spree_vendor_stock_location_propagate_all_variants">Propagate all variants</label>
+                      <%= f_stock.check_box :propagate_all_variants, checked: params[:spree_vendor] && params[:spree_vendor][:stock_location] && params[:spree_vendor][:stock_location][:propagate_all_variants] ? params[:spree_vendor][:stock_location][:propagate_all_variants].to_i > 0 ? true : false : false %>
+                      <%= f_stock.label :propagate_all_variants, 'Propagate all variants' %>
                     </div>
-
-                    <label class="spree-checkbox-label text-secondary w-100"
-                      for="spree_vendor_stock_location_propagate_all_variants">Propagate all variants</label>
+                    <%= f_stock.label :propagate_all_variants, 'Propagate all variants', class: 'spree-checkbox-label text-secondary w-100' %>
                   </div>
-                </div>
-
+                <% end %>
+          
                 <div class="form-group" data-hook="stock_location_address1">
                   <input class="form-control spree-flat-input" required="required" placeholder="Street Address*"
                     type="text" name="spree_vendor[stock_location][address1]" id="spree_vendor_stock_location_address1"
