@@ -5,7 +5,7 @@
       <h3 class="spree-mb-large spree-mt-large spree-header">
         <%=I18n.t('storefront.buttons.request_vendor_account')%>
       </h3>
-      <div id="new-vendor" class="panel-body" data-hook="login">
+      <div id="new-vendor" class="panel-body">
         <%= form_with model: [:spree, @vendor], scope: :spree_vendor, url: spree.vendors_path, method: :post, local: true, html: {multipart: true} do |f| %>
 
         <div data-hook="signup_inside_form">
@@ -265,14 +265,12 @@
               name="spree_vendor[user][password_confirmation]" id="spree_vendor_user_password_confirmation"
               value="<%=params.include?(:spree_vendor) && params[:spree_vendor].include?(:user) ? params[:spree_vendor][:user][:password_confirmation] : '' %>">
           </div>
-          <div data-hook="signup_below_password_fields"></div>
 
           <div>
           <%= f.submit I18n.t('storefront.buttons.request_vendor_account'), class: 'btn btn-primary btn-block spree-btn mt-2 mb-3' %>
           </div>
         </div>
         <% end %>
-        <div data-hook="login_extras"></div>
       </div>
     </div>
   </div>
