@@ -2,7 +2,6 @@
 
 function update_state(region, done) {
   'use strict'
-  var region = ''
   // var country = $('span#' + region + 'country .select2').select2('val')
   var country = $('span#' + region + 'country .select2 option:selected').val()
   var stateSelect = $('span#' + region + 'state select.select2')
@@ -23,12 +22,12 @@ function update_state(region, done) {
           .html(state.name)
         stateSelect.append(opt)
       })
-      stateSelect.prop('disabled', false).show()
+      stateSelect.prop('disabled', false).attr('required', true).show()
       // stateSelect.select2()
       stateInput.hide().prop('disabled', true)
     } else {
       stateInput.prop('disabled', false).show()
-      stateSelect.select2('destroy').hide()
+      stateSelect.attr('required', false).select2('destroy').hide()
     }
 
     if (done) done()

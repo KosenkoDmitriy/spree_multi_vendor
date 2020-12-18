@@ -1,8 +1,4 @@
 <% @body_id = 'signup' %>
-<%#= render partial: 'spree/shared/error_messages', locals: { target: @vendor } #%>
-<%#= render partial: 'spree/shared/error_messages', locals: { target: @user } #%>
-<%#= render partial: 'spree/shared/error_messages', locals: { target: @stock_location } #%>
-
 <div class="container d-flex justify-content-center mb-5">
   <div class="col-md-6">
     <div class="panel panel-default">
@@ -205,13 +201,12 @@
                 <div class="form-group" data-hook="stock_location_country">
                   <label class="spree-flat-label" for="spree_vendor_stock_location_country_id">Country*</label>
                   <span id="country">
-
                     <select class="select2 spree-flat-select" required="required"
                       name="spree_vendor[stock_location][country_id]" id="spree_vendor_stock_location_country_id">
                       <option value=""></option>
                       <%#= options_for_select(@countries_array) #%>
                       <%= options_for_select(Spree::Country.all.map { |country| [country.name, country.id] },
-                      params.include?(:spree_vendor) && params[:spree_vendor].include?(:stock_location) ? params[:spree_vendor][:stock_location][:country_id] : ''
+                      params[:spree_vendor] && params[:spree_vendor][:stock_location] && params[:spree_vendor][:stock_location][:country_id] ? params[:spree_vendor][:stock_location][:country_id] : ''
                       )%>
                     </select>
                   </span>
@@ -220,6 +215,19 @@
                 <div class="form-group" data-hook="stock_location_state">
                   <label class="spree-flat-label" for="spree_vendor_stock_location_state_id">State*</label>
                   <span id="state" class="region">
+                    <% if params[:spree_vendor] && params[:spree_vendor][:stock_location] %>
+                    <% is_country_id = params[:spree_vendor][:stock_location][:state_id].to_i > 0 ? true : false %>
+                      <input style="<%= is_country_id ? 'display: none;' : 'display: block;' %>" class="state_name form-control" type="text"
+                      name="spree_vendor[stock_location][state_name]" id="spree_vendor_stock_location_state_name"
+                      value="<%= params[:spree_vendor][:stock_location][:state_name] %>">
+                      <select class="select2 spree-flat-select" style="<%= is_country_id ? 'display: block;' : 'display: none;' %>"
+                      name="spree_vendor[stock_location][state_id]" id="spree_vendor_stock_location_state_id", <%= is_country_id ? 'required' : '' %>>
+                      <option value=""></option>
+                      <%= options_for_select(Spree::State.all.map { |state| [state.name, state.id] },
+                      params[:spree_vendor] && params[:spree_vendor][:stock_location] && params[:spree_vendor][:stock_location][:state_id] ? params[:spree_vendor][:stock_location][:state_id] : ''
+                      ) %>
+                    </select>
+                    <% else %>
                     <input style="display: none;" disabled="disabled" class="state_name form-control" type="text"
                       name="spree_vendor[stock_location][state_name]" id="spree_vendor_stock_location_state_name">
                     <select class="select2 spree-flat-select" style="" required="required"
@@ -227,9 +235,10 @@
                       <option value=""></option>
                       <%#= options_for_select(@states_array) #%>
                       <%= options_for_select(Spree::State.all.map { |state| [state.name, state.id] },
-                      params.include?(:spree_vendor) && params[:spree_vendor].include?(:stock_location) ? params[:spree_vendor][:stock_location][:state_id] : ''
+                      params[:spree_vendor] && params[:spree_vendor][:stock_location] && params[:spree_vendor][:stock_location][:state_id] ? params[:spree_vendor][:stock_location][:state_id] : ''
                       ) %>
                     </select>
+                    <% end %>
                   </span>
                 </div>
               </div>
@@ -259,9 +268,7 @@
           <div data-hook="signup_below_password_fields"></div>
 
           <div>
-            <input type="submit" name="commit" value="<%=I18n.t('storefront.buttons.request_vendor_account')%>"
-              class="btn btn-primary btn-block spree-btn mt-2 mb-3"
-              data-disable-with="<%=I18n.t('storefront.buttons.request_vendor_account')%>">
+          <%= f.submit I18n.t('storefront.buttons.request_vendor_account'), class: 'btn btn-primary btn-block spree-btn mt-2 mb-3' %>
           </div>
         </div>
         <% end %>
