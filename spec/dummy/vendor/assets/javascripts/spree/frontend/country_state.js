@@ -24,9 +24,9 @@ function update_state(region, done) {
       })
       stateSelect.prop('disabled', false).attr('required', true).show()
       // stateSelect.select2()
-      stateInput.hide().prop('disabled', true)
+      stateInput.hide().attr('required', false).prop('disabled', true)
     } else {
-      stateInput.prop('disabled', false).show()
+      stateInput.attr('required', true).prop('disabled', false).show()
       stateSelect.attr('required', false).select2('destroy').hide()
     }
 
