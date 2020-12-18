@@ -216,12 +216,13 @@
                   <label class="spree-flat-label" for="spree_vendor_stock_location_state_id">State*</label>
                   <span id="state" class="region">
                     <% if params[:spree_vendor] && params[:spree_vendor][:stock_location] %>
-                    <% is_country_id = params[:spree_vendor][:stock_location][:state_id].to_i > 0 ? true : false %>
-                      <input style="<%= is_country_id ? 'display: none;' : 'display: block;' %>" class="state_name form-control" type="text"
+                      <% is_country_id = params[:spree_vendor][:stock_location][:state_id].to_i > 0 ? true : false %>
+                      is state name: <%= is_select_box = !params[:spree_vendor][:stock_location].include?(:state_name) %>
+                      <input style="<%= is_select_box ? 'display: none;' : 'display: block;' %>" class="state_name form-control" type="text"
                       name="spree_vendor[stock_location][state_name]" id="spree_vendor_stock_location_state_name"
-                      value="<%= params[:spree_vendor][:stock_location][:state_name] %>">
-                      <select class="select2 spree-flat-select" style="<%= is_country_id ? 'display: block;' : 'display: none;' %>"
-                      name="spree_vendor[stock_location][state_id]" id="spree_vendor_stock_location_state_id", <%= is_country_id ? 'required' : '' %>>
+                      value="<%= params[:spree_vendor][:stock_location][:state_name] %>" <%= is_select_box ? 'block' : '' %>>
+                      <select class="select2 spree-flat-select" style="<%= is_select_box && is_country_id ? 'display: block;' : 'display: none;' %>"
+                      name="spree_vendor[stock_location][state_id]" id="spree_vendor_stock_location_state_id", <%= is_select_box && is_country_id ? 'required' : '' %>>
                       <option value=""></option>
                       <%= options_for_select(Spree::State.all.map { |state| [state.name, state.id] },
                       params[:spree_vendor] && params[:spree_vendor][:stock_location] && params[:spree_vendor][:stock_location][:state_id] ? params[:spree_vendor][:stock_location][:state_id] : ''

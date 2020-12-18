@@ -119,7 +119,7 @@ class Spree::VendorsController < Spree::StoreController
         # @vendor.stock_locations = [@stock_location]
         last_stock_location = @vendor.stock_locations.last
         last_stock_location.update_attributes(stock_location_params)
-        last_stock_location.update(state_name: last_stock_location.name)
+        # last_stock_location.update(state_name: last_stock_location.name)
         flash[:notice] = I18n.t(:'devise.user_registrations.inactive_signed_up', reason: 'not yet activated')
         redirect_to root_path
       else
