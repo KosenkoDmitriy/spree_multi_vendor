@@ -63,7 +63,7 @@ describe "vendor signup process" do
     fill_in :spree_vendor_user_password_confirmation, with: 'password'
 
     click_on(I18n.t('storefront.buttons.request_vendor_account'))
-    expect(page).to have_text(I18n.t(:'devise.user_registrations.inactive_signed_up', reason: 'not yet activated'))
+    expect(page).to have_text(I18n.t(:'spree.vendor_registrations.inactive_signed_up'))
     
     user = Spree::User.last
     vendor = user.vendors.last

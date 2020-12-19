@@ -17,6 +17,8 @@ en:
         created_at: created at
         priority: priority
   spree:
+    vendor_registrations:
+      inactive_signed_up: Confirm your email address. We have sent an email with a confirmation link to your email address. In order to complete the sign-up process, please click the confirmation link. If you do not receive a confirmation email, please check your spam folder. Also, please verify that you entered a valid email address in our sign-up form. If you need assistance, please contact us.
     back_to_vendors_list: Back To Vendors List
     blocked: Blocked
     edit_vendor: Edit Vendor

@@ -120,8 +120,9 @@ class Spree::VendorsController < Spree::StoreController
         last_stock_location = @vendor.stock_locations.last
         last_stock_location.update_attributes(stock_location_params)
         # last_stock_location.update(state_name: last_stock_location.name)
-        flash[:notice] = I18n.t(:'devise.user_registrations.inactive_signed_up', reason: 'not yet activated')
+        flash[:notice] = I18n.t(:'spree.vendor_registrations.inactive_signed_up')
         redirect_to root_path
+        return
       else
         flash.now[:error] = 'error - can not create the vendor'
       end

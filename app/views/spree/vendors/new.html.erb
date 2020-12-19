@@ -141,10 +141,6 @@
 
                   <div class="spree-checkbox-container mb-3" data-hook="stock_location_default">
                     <div class="spree-checkbox">
-                      <input name="spree_vendor[stock_location][default]" type="hidden" value="0">
-                      <input type="checkbox" value="1" name="spree_vendor[stock_location][default]"
-                        id="spree_vendor_stock_location_default">
-                      <label for="spree_vendor_stock_location_default">Default</label>
                       <%= f_stock.check_box :default, checked: params[:spree_vendor] && params[:spree_vendor][:stock_location] && params[:spree_vendor][:stock_location][:default] ? params[:spree_vendor][:stock_location][:default].to_i > 0 ? true : false : false %>
                       <%= f_stock.label :default, 'Default' %>
                     </div>
