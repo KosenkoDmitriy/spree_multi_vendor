@@ -73,9 +73,10 @@
             <div class="field" id="spree_vendor_name_field">
               <div class="form-group mb-4">
                 <p class="form-group checkout-content-inner-field">
-                  <input class="form-control spree-flat-input" required="required" placeholder="Vendor Name*"
-                    type="text" name="spree_vendor[name]" id="spree_vendor_name"
+                  <input class="form-control spree-flat-input <%= error_class(@vendor, :name) %>" required="required" placeholder="Vendor Name*"
+                    type="text" name="spree_vendor[name]" id="spree_vendor_name" 
                     value=<%=params.include?(:spree_vendor) ? params[:spree_vendor][:name] : '' %>>
+                    <div class="error"><%= show_errors(@vendor, :name) %></div>
                 </p>
               </div>
             </div>
@@ -124,7 +125,8 @@
 
                 <div class="form-group" data-hook="stock_location_names">
                   <div class="mb-4" data-hook="stock_location_name">
-                    <%= f_stock.text_field :name, required: true, placeholder: 'Name*', class: 'form-control spree-flat-input', value: params.include?(:spree_vendor) && params[:spree_vendor].include?(:stock_location) ? params[:spree_vendor][:stock_location][:name] : '' %>
+                    <%= f_stock.text_field :name, required: true, placeholder: 'Name*', class: "form-control spree-flat-input #{error_class(@stock_location, :name)}", value: params.include?(:spree_vendor) && params[:spree_vendor].include?(:stock_location) ? params[:spree_vendor][:stock_location][:name] : '' %>
+                    <div class="error"><%= show_errors(@stock_location, :name)%></div>
                   </div>
                 </div>
 
@@ -249,24 +251,30 @@
           <h4 class="my-4">Account Details</h4>
 
           <div class="form-group mb-5">
-            <input class="spree-flat-input" placeholder="Email" type="email" name="spree_vendor[user][email]"
+            <label class="spree-flat-label" for="spree_vendor_user_email">Email*</label>
+            <input class="form-control spree-flat-input <%= error_class(@user, :email) %>" placeholder="Email" type="email" name="spree_vendor[user][email]"
               id="spree_vendor_user_email"
               value="<%=params.include?(:spree_vendor) && params[:spree_vendor].include?(:user) ? params[:spree_vendor][:user][:email] : '' %>">
+            <div class="error"><%= show_errors(@user, :email) %></div>
           </div>
 
           <div class="form-group mb-4">
-            <input class="spree-flat-input" placeholder="Password" type="password" name="spree_vendor[user][password]"
+            <label class="spree-flat-label" for="spree_vendor_user_password">Password*</label>
+            <input class="form-control spree-flat-input <%= error_class(@user, :password) %>" placeholder="Password" type="password" name="spree_vendor[user][password]"
               id="spree_vendor_user_password"
               value="<%=params.include?(:spree_vendor) && params[:spree_vendor].include?(:user) ? params[:spree_vendor][:user][:password] : '' %>">
+            <div class="error"><%= show_errors(@user, :password) %></div>
           </div>
 
           <div class="form-group mb-5">
-            <input class="spree-flat-input" placeholder="Password Confirmation" type="password"
+            <label class="spree-flat-label" for="spree_vendor_user_password_confirmation">Password Confirmation*</label>
+            <input class="form-control spree-flat-input <%= error_class(@user, :password_confirmation) %>" placeholder="Password Confirmation" type="password"
               name="spree_vendor[user][password_confirmation]" id="spree_vendor_user_password_confirmation"
               value="<%=params.include?(:spree_vendor) && params[:spree_vendor].include?(:user) ? params[:spree_vendor][:user][:password_confirmation] : '' %>">
+            <div class="error"><%= show_errors(@user, :password_confirmation) %></div>
           </div>
 
-          <div class="">
+          <div>
             <%= f.button I18n.t('storefront.buttons.request_vendor_account').html_safe, type: :submit, class: 'btn btn-primary btn-block spree-btn mt-2 mb-3 d-flex justify-content-center', data: { disable_with: "<div class='d-flex align-items-center'><span class='spinner-border spinner-border-sm mr-2'></span>Signing Up...</div>" } %>
             <%#= f.submit I18n.t('storefront.buttons.request_vendor_account'), class: 'btn btn-primary btn-block spree-btn mt-2 mb-3' #%>
           </div>
