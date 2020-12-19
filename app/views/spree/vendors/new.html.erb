@@ -76,7 +76,7 @@
                   <input class="form-control spree-flat-input <%= error_class(@vendor, :name) %>" required="required" placeholder="Vendor Name*"
                     type="text" name="spree_vendor[name]" id="spree_vendor_name" 
                     value=<%=params.include?(:spree_vendor) ? params[:spree_vendor][:name] : '' %>>
-                    <div class="error"><%= show_errors(@vendor, :name) %></div>
+                  <div class="error"><%= show_errors(@vendor, :name) %></div>
                 </p>
               </div>
             </div>
@@ -86,6 +86,7 @@
                   <textarea class="form-control spree-flat-input" required="required" placeholder="Description*"
                     name="spree_vendor[about_us]"
                     id="spree_vendor_about_us"><%=params.include?(:spree_vendor) ? params[:spree_vendor][:about_us] : '' %></textarea>
+                  <div class="error"><%= show_errors(@vendor, :about_us) %></div>
                 </p>
               </div>
             </div>
@@ -111,6 +112,7 @@
                   <input class="form-control spree-flat-input" required="required" placeholder="Email*" type="text"
                     name="spree_vendor[notification_email]" id="spree_vendor_notification_email"
                     value=<%=params.include?(:spree_vendor) ? params[:spree_vendor][:notification_email] : '' %>>
+                  <div class="error"><%= show_errors(@vendor, :notification_email) %></div>
                 </p>
               </div>
             </div>
@@ -170,30 +172,35 @@
                   <input class="form-control spree-flat-input" required="required" placeholder="Street Address*"
                     type="text" name="spree_vendor[stock_location][address1]" id="spree_vendor_stock_location_address1"
                     value="<%=params.include?(:spree_vendor) && params[:spree_vendor].include?(:stock_location) ? params[:spree_vendor][:stock_location][:address1] : '' %>">
+                  <div class="error"><%= show_errors(@stock_location, :address1) %></div>
                 </div>
 
                 <div class="form-group" data-hook="stock_location_city">
                   <input class="form-control spree-flat-input" required="required" placeholder="City*" type="text"
                     name="spree_vendor[stock_location][city]" id="spree_vendor_stock_location_city"
                     value="<%=params.include?(:spree_vendor) && params[:spree_vendor].include?(:stock_location) ? params[:spree_vendor][:stock_location][:city] : '' %>">
+                  <div class="error"><%= show_errors(@stock_location, :city) %></div>
                 </div>
 
                 <div class="form-group" data-hook="stock_location_address2">
                   <input class="form-control spree-flat-input" placeholder="Street Address (cont'd)" type="text"
                     name="spree_vendor[stock_location][address2]" id="spree_vendor_stock_location_address2"
                     value="<%=params.include?(:spree_vendor) && params[:spree_vendor].include?(:stock_location) ? params[:spree_vendor][:stock_location][:address2] : '' %>">
+                  <div class="error"><%= show_errors(@stock_location, :address2) %></div>
                 </div>
 
                 <div class="form-group" data-hook="stock_location_zipcode">
                   <input class="form-control spree-flat-input" required="required" placeholder="Zip*" type="text"
                     name="spree_vendor[stock_location][zipcode]" id="spree_vendor_stock_location_zipcode"
                     value="<%=params.include?(:spree_vendor) && params[:spree_vendor].include?(:stock_location) ? params[:spree_vendor][:stock_location][:zipcode] : '' %>">
+                  <div class="error"><%= show_errors(@stock_location, :zipcode) %></div>
                 </div>
 
                 <div class="form-group" data-hook="stock_location_phone">
                   <input class="form-control spree-flat-input" placeholder="Phone" type="tel"
                     name="spree_vendor[stock_location][phone]" id="spree_vendor_stock_location_phone"
                     value="<%=params.include?(:spree_vendor) && params[:spree_vendor].include?(:stock_location) ? params[:spree_vendor][:stock_location][:phone] : '' %>">
+                    <div class="error"><%= show_errors(@stock_location, :phone) %></div>
                 </div>
 
                 <div class="form-group" data-hook="stock_location_country">
@@ -208,7 +215,9 @@
                       )%>
                     </select>
                   </span>
+                  <div class="error"><%= show_errors(@stock_location, :country) %></div>
                 </div>
+                
 
                 <div class="form-group" data-hook="stock_location_state">
                   <label class="spree-flat-label" for="spree_vendor_stock_location_state_id">State*</label>
@@ -242,6 +251,7 @@
                     </select>
                     <% end %>
                   </span>
+                  <div class="error"><%= show_errors(@stock_location, :state) %></div>
                 </div>
               </div>
             </fieldset>
@@ -276,7 +286,6 @@
 
           <div>
             <%= f.button I18n.t('storefront.buttons.request_vendor_account').html_safe, type: :submit, class: 'btn btn-primary btn-block spree-btn mt-2 mb-3 d-flex justify-content-center', data: { disable_with: "<div class='d-flex align-items-center'><span class='spinner-border spinner-border-sm mr-2'></span>Signing Up...</div>" } %>
-            <%#= f.submit I18n.t('storefront.buttons.request_vendor_account'), class: 'btn btn-primary btn-block spree-btn mt-2 mb-3' #%>
           </div>
         </div>
         <% end %>
