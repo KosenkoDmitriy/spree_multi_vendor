@@ -1,5 +1,10 @@
 class Spree::VendorsController < Spree::StoreController
-  
+  def show
+  end
+
+  def index
+  end
+
   def new
     # @countries_array = Spree::Country.all.map { |country| [country.name, country.id] }
     # @states_array = Spree::State.all.map { |state| [state.name, state.id] }
