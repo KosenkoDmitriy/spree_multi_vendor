@@ -7,6 +7,7 @@ module SpreeMultiVendor
       
       def add_configs
         copy_file 'config/spree_storefront.yml', 'config/spree_storefront.yml'
+        copy_file 'app/helpers/spree/vendor_helper.rb', 'app/helpers/spree/vendor_helper.rb'
       end
 
       def add_images
