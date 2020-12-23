@@ -17,6 +17,7 @@ class Spree::VendorsController < Spree::StoreController
   def create
     @vendor = Spree::Vendor.new(vendor_params)
     @user = Spree::User.new(user_params)
+    @user.spree_roles << Spree::Role.find_or_create_by(name: 'vendor') if !@user.has_spree_role?('vendor')
     @vendor.notification_email = @user.email
     @vendor.contact_us = @user.email
     @user.vendors << @vendor
