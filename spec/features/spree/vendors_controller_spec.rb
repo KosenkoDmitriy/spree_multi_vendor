@@ -46,6 +46,7 @@ describe "vendor signup process" do
     expect(vendor.contact_us).to have_text(user_email)
     expect(user.email).to eq(user_email)
     expect(user.has_spree_role?('vendor')).to eq(true)
+    expect(vendor.state).to eq('active')
   end
 
   xit 'full form success' do

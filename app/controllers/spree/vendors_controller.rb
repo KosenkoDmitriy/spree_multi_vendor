@@ -20,6 +20,7 @@ class Spree::VendorsController < Spree::StoreController
     @user.spree_roles << Spree::Role.find_or_create_by(name: 'vendor') if !@user.has_spree_role?('vendor')
     @vendor.notification_email = @user.email
     @vendor.contact_us = @user.email
+    @vendor.state = 'active'
     @user.vendors << @vendor
     if @user.save
       flash[:notice] = I18n.t(:'spree.vendor_registrations.inactive_signed_up')
