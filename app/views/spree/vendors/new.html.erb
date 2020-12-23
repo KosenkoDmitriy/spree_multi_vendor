@@ -10,15 +10,12 @@
 
         <div data-hook="signup_inside_form">
           <div class="form-group">
-            <!-- <h4 class="my-4">Account Details</h4> -->
-
+            
             <div class="field" id="spree_vendor_name_field">
               <div class="form-group mb-4">
-                <p class="form-group checkout-content-inner-field">
-                  <%= f.label 'Store Name*', required: true, class: "spree-flat-label" %>
-                  <%= f.text_field :name, required: true, placeholder: 'Vendor Name*', class: "form-control spree-flat-input #{error_class(@vendor, :name)}", value: params[:spree_vendor] && params[:spree_vendor][:name] ? params[:spree_vendor][:name] : '' %>
-                  <div class="error"><%= show_errors(@vendor, :name) %></div>
-                </p>
+                <%= f.label 'Store Name*', class: "spree-flat-label" %>
+                <%= f.text_field :name, required: false, placeholder: 'Vendor Name*', class: "form-control spree-flat-input #{error_class(@vendor, :name)}", value: params[:spree_vendor] && params[:spree_vendor][:name] ? params[:spree_vendor][:name] : '' %>
+                <div class="error"><%= show_errors(@vendor, :name) %></div>
               </div>
             </div>
 
