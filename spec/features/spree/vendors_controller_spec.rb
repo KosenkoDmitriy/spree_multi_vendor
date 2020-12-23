@@ -24,8 +24,30 @@ describe "vendor signup process" do
   let(:vendor_email) {'vendor@email.com'}
   let(:vendor_contact_email) {'vendor@contact_email.com'}
   let(:user_email) {'user@email.com'}
-    
+  
   it 'success' do
+    visit '/vendors/new'
+
+    # vendor account details
+    fill_in :spree_vendor_name, with: 'TestVendor'
+    # account details
+    fill_in :spree_vendor_user_email, with: user_email
+    fill_in :spree_vendor_user_password, with: 'password'
+    fill_in :spree_vendor_user_password_confirmation, with: 'password'
+
+    click_on(I18n.t('storefront.buttons.request_vendor_account'))
+    expect(page).to have_text(I18n.t(:'spree.vendor_registrations.inactive_signed_up'))
+    
+    user = Spree::User.last
+    vendor = user.vendors.last
+  
+    expect(vendor.name).to eq('TestVendor')
+    expect(vendor.notification_email).to eq(user_email)
+    expect(vendor.contact_us).to have_text(user_email)
+    expect(user.email).to eq(user_email)
+  end
+
+  xit 'full form success' do
     visit '/vendors/new'
 
     # contact person details

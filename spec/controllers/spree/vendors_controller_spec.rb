@@ -4,10 +4,16 @@ require 'spec_helper'
 RSpec.describe Spree::VendorsController, type: :controller do
   
   describe 'Vendor Sign Up' do
-    let (:valid_params) { {
+    let (:valid_params_of_small_form) { 
+      {"spree_vendor"=> {
+        "name" => "test",
+        "user" => {"email"=>"test@email.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+      }}
+    }
+    let (:valid_params_of_full_form) { {
       "spree_vendor"=> {
       "contact_details_attributes"=>
-        {"name"=>"test", "surname"=>"test", "job_title"=>"test", "email"=>"test", "phone"=>"1231231", "website"=>"test.com"},
+        {"name"=>"test", "surname"=>"test", "job_title"=>"test", "email"=>"test", "x"=>"1231231", "website"=>"test.com"},
       "name"=>"test",
       "about_us"=>"test",
       "image"=> [],
@@ -37,7 +43,7 @@ RSpec.describe Spree::VendorsController, type: :controller do
     end
 
     it 'create' do
-      post :create, params: valid_params
+      post :create, params: valid_params_of_small_form
       # expect(response).to have_text('sign') #todo: follow redirect and check flash notice 
       expect(response.status).to eq(204)
     end
