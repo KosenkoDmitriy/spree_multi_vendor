@@ -44,8 +44,10 @@ RSpec.describe Spree::VendorsController, type: :controller do
 
     it 'create' do
       post :create, params: valid_params_of_small_form
-      # expect(response).to have_text('sign') #todo: follow redirect and check flash notice 
-      expect(response.status).to eq(204)
+      expect(flash[:notice]).not_to be_empty
+      expect(flash[:error]).to eq(nil)
+      expect(response).to redirect_to("/")
+      expect(response.status).to eq(302)
     end
   end
 end
