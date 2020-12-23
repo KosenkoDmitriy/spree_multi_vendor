@@ -1,0 +1,280 @@
+<% @body_id = 'signup' %>
+<div class="container d-flex justify-content-center mb-5">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <h3 class="spree-mb-large spree-mt-large spree-header">
+        <%= I18n.t('storefront.buttons.request_vendor_account') %>
+      </h3>
+      <div id="new-vendor" class="panel-body">
+        <%= form_with model: [:spree, @vendor], scope: :spree_vendor, url: spree.vendors_path, method: :post, local: true, html: {multipart: true} do |f| %>
+
+        <div data-hook="signup_inside_form">
+          <div class="form-group">
+            <h4 class="my-4">Contact Person Details</h4>
+
+            <div class="form-group mb-4">
+              <p class="form-group checkout-content-inner-field">
+                <input class="form-control spree-flat-input" required="required" placeholder="Name*" type="text"
+                  name="spree_vendor[contact_details_attributes][name]"
+                  id="spree_vendor_contact_details_attributes_name" value=<%=params.include?(:spree_vendor) && params[:spree_vendor].include?(:contact_details_attributes) ?
+                  params[:spree_vendor][:contact_details_attributes][:name] : '' %>>
+              </p>
+            </div>
+
+            <div class="form-group mb-4">
+              <p class="form-group checkout-content-inner-field">
+                <input class="form-control spree-flat-input" required="required" placeholder="Surname*" type="text"
+                  name="spree_vendor[contact_details_attributes][surname]"
+                  id="spree_vendor_contact_details_attributes_surname" value=<%=params.include?(:spree_vendor) && params[:spree_vendor].include?(:contact_details_attributes) ?
+                  params[:spree_vendor][:contact_details_attributes][:surname] : '' %>>
+              </p>
+            </div>
+
+            <div class="form-group mb-4">
+              <p class="form-group checkout-content-inner-field">
+                <input class="form-control spree-flat-input" required="required" placeholder="Job Title*" type="text"
+                  name="spree_vendor[contact_details_attributes][job_title]"
+                  id="spree_vendor_contact_details_attributes_job_title" value=<%=params.include?(:spree_vendor) && params[:spree_vendor].include?(:contact_details_attributes) ?
+                  params[:spree_vendor][:contact_details_attributes][:job_title] : '' %>>
+              </p>
+            </div>
+
+            <div class="form-group mb-4">
+              <p class="form-group checkout-content-inner-field">
+                <input class="form-control spree-flat-input" required="required" placeholder="Email*" type="text"
+                  name="spree_vendor[contact_details_attributes][email]"
+                  id="spree_vendor_contact_details_attributes_email" value=<%=params.include?(:spree_vendor) && params[:spree_vendor].include?(:contact_details_attributes) ?
+                  params[:spree_vendor][:contact_details_attributes][:email] : '' %>>
+              </p>
+            </div>
+
+            <div class="form-group mb-4">
+              <p class="form-group checkout-content-inner-field">
+                <input class="form-control spree-flat-input" placeholder="Phone" type="tel"
+                  name="spree_vendor[contact_details_attributes][phone]"
+                  id="spree_vendor_contact_details_attributes_phone" value=<%=params.include?(:spree_vendor) && params[:spree_vendor].include?(:contact_details_attributes) ?
+                  params[:spree_vendor][:contact_details_attributes][:phone] : '' %>>
+              </p>
+            </div>
+
+            <div class="form-group mb-4">
+              <p class="form-group checkout-content-inner-field">
+                <input class="form-control spree-flat-input" placeholder="website" type="text"
+                  name="spree_vendor[contact_details_attributes][website]"
+                  id="spree_vendor_contact_details_attributes_website" value=<%=params.include?(:spree_vendor) && params[:spree_vendor].include?(:contact_details_attributes) ?
+                  params[:spree_vendor][:contact_details_attributes][:website] : '' %>>
+              </p>
+            </div>
+
+            <hr>
+
+            <h4 class="my-4">Vendor Account Details</h4>
+
+            <div class="field" id="spree_vendor_name_field">
+              <div class="form-group mb-4">
+                <p class="form-group checkout-content-inner-field">
+                  <%= f.text_field :name, required: true, placeholder: 'Vendor Name*', class: "form-control spree-flat-input #{error_class(@vendor, :name)}", value: params[:spree_vendor] && params[:spree_vendor][:name] ? params[:spree_vendor][:name] : '' %>
+                  <div class="error"><%= show_errors(@vendor, :name) %></div>
+                </p>
+              </div>
+            </div>
+            <div class="field" id="spree_vendor_about_us_field">
+              <div class="form-group mb-4">
+                <p class="form-group checkout-content-inner-field">
+                  <%= f.text_area :about_us, required: true, placeholder: 'Description*', class: "form-control spree-flat-input #{error_class(@vendor, :about_us)}", value: params[:spree_vendor] && params[:spree_vendor][:about_us] ? params[:spree_vendor][:about_us] : '' %>
+                  <div class="error"><%= show_errors(@vendor, :about_us) %></div>
+                </p>
+              </div>
+            </div>
+            <div class="field" id="spree_vendor_image_field">
+              <div class="form-group mb-4">
+                <p class="form-group checkout-content-inner-field">
+                  <label for="spree_vendor_image">Logo*</label>
+                    <% if params[:uploaded_file].present? %>  
+                      <%= text_area_tag(:uploaded_file, StringIO.new(CGI.escape(params[:uploaded_file])), style: 'display: none;') %>
+                      <%= hidden_field_tag :uploaded_file_headers, params[:uploaded_file_headers] %>
+                      <%= hidden_field_tag :uploaded_file_content_type, params[:uploaded_file_content_type] %>
+                      <%= hidden_field_tag :uploaded_file_original_filename, params[:uploaded_file_original_filename] %>
+                      <%= f.file_field :image, title: ' ', hide_label: true, style: "color:transparent; width:80px;" %>
+                    <% else %>
+                      <%= f.file_field :image, required: true, title: "&nbsp;", value: '', hide_label: true %>
+                    <% end %>
+                </p>
+              </div>
+            </div>
+            <div class="field" id="spree_vendor_notification_email_field">
+              <div class="form-group mb-4">
+                <p class="form-group checkout-content-inner-field">
+                  <%= f.email_field :notification_email, required: true, placeholder: 'Email*', class: "form-control spree-flat-input #{error_class(@vendor, :notification_email)}", value: params[:spree_vendor] && params[:spree_vendor][:notification_email] ? params[:spree_vendor][:notification_email] : '' %>
+                  <div class="error"><%= show_errors(@vendor, :notification_email) %></div>
+                </p>
+              </div>
+            </div>
+            <hr>
+
+            <h4 class="my-4">Stock Location</h4>
+
+            <fieldset>
+              <div>
+                <%= f.fields_for :stock_location, @vendor.stock_locations do |f_stock| %>
+
+                <div class="form-group" data-hook="stock_location_names">
+                  <div class="mb-4" data-hook="stock_location_name">
+                    <%= f_stock.text_field :name, required: true, placeholder: 'Name*', class: "form-control spree-flat-input #{error_class(@stock_location, :name)}", value: params.include?(:spree_vendor) && params[:spree_vendor].include?(:stock_location) ? params[:spree_vendor][:stock_location][:name] : '' %>
+                    <div class="error"><%= show_errors(@stock_location, :name)%></div>
+                  </div>
+                </div>
+
+                <div class="form-group" data-hook="stock_location_status">
+                  <p class="spree-flat-label">Status</p>
+
+                  <div class="spree-checkbox-container mb-3" data-hook="stock_location_active">
+                    <div class="spree-checkbox">
+                      <%= f_stock.check_box :active, checked: params[:spree_vendor] && params[:spree_vendor][:stock_location] && params[:spree_vendor][:stock_location][:active] ? params[:spree_vendor][:stock_location][:active].to_i > 0 ? true : false : true %>
+                      <%= f_stock.label :active, 'Active' %>
+                    </div>
+                    <%= f_stock.label :active, 'Active', class: 'spree-checkbox-label text-secondary w-100' %>
+                  </div>
+
+                  <div class="spree-checkbox-container mb-3" data-hook="stock_location_default">
+                    <div class="spree-checkbox">
+                      <%= f_stock.check_box :default, checked: params[:spree_vendor] && params[:spree_vendor][:stock_location] && params[:spree_vendor][:stock_location][:default] ? params[:spree_vendor][:stock_location][:default].to_i > 0 ? true : false : false %>
+                      <%= f_stock.label :default, 'Default' %>
+                    </div>
+                    <%= f_stock.label :default, 'Default', class: 'spree-checkbox-label text-secondary w-100' %>
+                  </div>
+
+                  <div class="spree-checkbox-container mb-3" data-hook="stock_location_backorderable_default">
+                    <div class="spree-checkbox">
+                      <%= f_stock.check_box :backorderable_default, checked: params[:spree_vendor] && params[:spree_vendor][:stock_location] && params[:spree_vendor][:stock_location][:backorderable_default] ? params[:spree_vendor][:stock_location][:backorderable_default].to_i > 0 ? true : false : false %>
+                      <%= f_stock.label :backorderable_default, 'Backorderable default' %>
+                    </div>
+                    <%= f_stock.label :backorderable_default, 'Backorderable default', class: 'spree-checkbox-label text-secondary w-100' %>
+                  </div>
+
+                  <div class="spree-checkbox-container mb-3" data-hook="stock_location_propagate_all_variants">
+                    <div class="spree-checkbox">
+                      <%= f_stock.check_box :propagate_all_variants, checked: params[:spree_vendor] && params[:spree_vendor][:stock_location] && params[:spree_vendor][:stock_location][:propagate_all_variants] ? params[:spree_vendor][:stock_location][:propagate_all_variants].to_i > 0 ? true : false : false %>
+                      <%= f_stock.label :propagate_all_variants, 'Propagate all variants' %>
+                    </div>
+                    <%= f_stock.label :propagate_all_variants, 'Propagate all variants', class: 'spree-checkbox-label text-secondary w-100' %>
+                  </div>
+                </div>
+                  
+                <div class="form-group" data-hook="stock_location_address1">
+                  <%= f_stock.text_field :address1, required: true, placeholder: 'Street Address*', class: "form-control spree-flat-input #{error_class(@stock_location, :address1)}", value: params[:spree_vendor] && params[:spree_vendor][:stock_location] ? params[:spree_vendor][:stock_location][:address1] : '' %>
+                  <div class="error"><%= show_errors(@stock_location, :address1) %></div>
+                </div>
+
+                <div class="form-group" data-hook="stock_location_city">
+                  <%= f_stock.text_field :city, required: true, placeholder: 'City*', class: "form-control spree-flat-input #{error_class(@stock_location, :city)}", value: params[:spree_vendor] && params[:spree_vendor][:stock_location] ? params[:spree_vendor][:stock_location][:city] : '' %>
+                  <div class="error"><%= show_errors(@stock_location, :city) %></div>
+                </div>
+
+                <div class="form-group" data-hook="stock_location_address2">
+                  <%= f_stock.text_field :address2, placeholder: "Street Address (cont'd)", class: "form-control spree-flat-input #{error_class(@stock_location, :address2)}", value: params[:spree_vendor] && params[:spree_vendor][:stock_location] ? params[:spree_vendor][:stock_location][:address2] : '' %>
+                  <div class="error"><%= show_errors(@stock_location, :address2) %></div>
+                </div>
+
+                <div class="form-group" data-hook="stock_location_zipcode">
+                  <%= f_stock.text_field :zipcode, required: true, placeholder: 'Zip*', class: "form-control spree-flat-input #{error_class(@stock_location, :zipcode)}", value: params[:spree_vendor] && params[:spree_vendor][:stock_location] ? params[:spree_vendor][:stock_location][:zipcode] : '' %>
+                  <div class="error"><%= show_errors(@stock_location, :zipcode) %></div>
+                </div>
+
+                <div class="form-group" data-hook="stock_location_phone">
+                  <%= f_stock.telephone_field :phone, placeholder: 'Phone', class: "form-control spree-flat-input #{error_class(@stock_location, :phone)}", value: params[:spree_vendor] && params[:spree_vendor][:stock_location] ? params[:spree_vendor][:stock_location][:phone] : '' %>
+                  <div class="error"><%= show_errors(@stock_location, :phone) %></div>
+                </div>
+                <% end %>
+
+                <div class="form-group" data-hook="stock_location_country">
+                  <label class="spree-flat-label" for="spree_vendor_stock_location_country_id">Country*</label>
+                  <span id="country">
+                    <select class="select2 spree-flat-select" required="required"
+                      name="spree_vendor[stock_location][country_id]" id="spree_vendor_stock_location_country_id">
+                      <option value=""></option>
+                      <%#= options_for_select(@countries_array) #%>
+                      <%= options_for_select(Spree::Country.all.map { |country| [country.name, country.id] },
+                      params[:spree_vendor] && params[:spree_vendor][:stock_location] && params[:spree_vendor][:stock_location][:country_id] ? params[:spree_vendor][:stock_location][:country_id] : ''
+                      )%>
+                    </select>
+                  </span>
+                  <div class="error"><%= show_errors(@stock_location, :country) %></div>
+                </div>
+                
+
+                <div class="form-group" data-hook="stock_location_state">
+                  <label class="spree-flat-label" for="spree_vendor_stock_location_state_id">State*</label>
+                  <span id="state" class="region">
+                    <% if params[:spree_vendor] && params[:spree_vendor][:stock_location] %>
+                      <% country_id = params[:spree_vendor][:stock_location][:country_id] %>
+                      <% states = Spree::State.where(country_id: country_id) %>
+                      <%# is_state_id = params[:spree_vendor][:stock_location].include?(:state_id) && params[:spree_vendor][:stock_location][:state_id].to_i > 0 #%>
+                      <% is_state_id = states.count > 0 %>
+                      <% is_state_name = params[:spree_vendor][:stock_location].include?(:state_name) %>
+                      <input style="<%= is_state_name ? 'display: block;' : 'display: none;' %>" class="state_name form-control" type="text"
+                      name="spree_vendor[stock_location][state_name]" id="spree_vendor_stock_location_state_name"
+                      value="<%= params[:spree_vendor][:stock_location][:state_name] %>" <%= is_state_name ? 'required' : 'disabled' %>>
+                      <select class="select2 spree-flat-select" style="<%= is_state_id ? 'display: block;' : 'display: none;' %>"
+                      name="spree_vendor[stock_location][state_id]" id="spree_vendor_stock_location_state_id" <%= is_state_id ? 'required' : 'disabled' %>>
+                      <option value=""></option>
+                      <%= options_for_select(states.map { |state| [state.name, state.id] },
+                      params[:spree_vendor] && params[:spree_vendor][:stock_location] && params[:spree_vendor][:stock_location][:state_id] ? params[:spree_vendor][:stock_location][:state_id] : ''
+                      ) %>
+                    </select>
+                    <% else %>
+                    <input style="display: none;" disabled="disabled" class="state_name form-control" type="text"
+                      name="spree_vendor[stock_location][state_name]" id="spree_vendor_stock_location_state_name">
+                    <select class="select2 spree-flat-select" style="" required="required"
+                      name="spree_vendor[stock_location][state_id]" id="spree_vendor_stock_location_state_id">
+                      <option value=""></option>
+                      <%#= options_for_select(@states_array) #%>
+                      <%= options_for_select(Spree::State.all.map { |state| [state.name, state.id] },
+                      params[:spree_vendor] && params[:spree_vendor][:stock_location] && params[:spree_vendor][:stock_location][:state_id] ? params[:spree_vendor][:stock_location][:state_id] : ''
+                      ) %>
+                    </select>
+                    <% end %>
+                  </span>
+                  <div class="error"><%= show_errors(@stock_location, :state) %></div>
+                </div>
+              </div>
+            </fieldset>
+
+            <hr>
+            <h4 class="my-4">Account Details</h4>
+
+            <div class="form-group mb-5">
+              <label class="spree-flat-label" for="spree_vendor_user_email">Email*</label>
+              <input class="form-control spree-flat-input <%= error_class(@user, :email) %>" placeholder="Email" type="email" name="spree_vendor[user][email]"
+                id="spree_vendor_user_email"
+                value="<%=params.include?(:spree_vendor) && params[:spree_vendor].include?(:user) ? params[:spree_vendor][:user][:email] : '' %>">
+              <div class="error"><%= show_errors(@user, :email) %></div>
+            </div>
+
+            <div class="form-group mb-4">
+              <label class="spree-flat-label" for="spree_vendor_user_password">Password*</label>
+              <input class="form-control spree-flat-input <%= error_class(@user, :password) %>" placeholder="Password" type="password" name="spree_vendor[user][password]"
+                id="spree_vendor_user_password"
+                value="<%=params.include?(:spree_vendor) && params[:spree_vendor].include?(:user) ? params[:spree_vendor][:user][:password] : '' %>">
+              <div class="error"><%= show_errors(@user, :password) %></div>
+            </div>
+
+            <div class="form-group mb-5">
+              <label class="spree-flat-label" for="spree_vendor_user_password_confirmation">Password Confirmation*</label>
+              <input class="form-control spree-flat-input <%= error_class(@user, :password_confirmation) %>" placeholder="Password Confirmation" type="password"
+                name="spree_vendor[user][password_confirmation]" id="spree_vendor_user_password_confirmation"
+                value="<%=params.include?(:spree_vendor) && params[:spree_vendor].include?(:user) ? params[:spree_vendor][:user][:password_confirmation] : '' %>">
+              <div class="error"><%= show_errors(@user, :password_confirmation) %></div>
+            </div>
+
+            <div>
+              <%= f.button I18n.t('storefront.buttons.request_vendor_account').html_safe, type: :submit, class: 'btn btn-primary btn-block spree-btn mt-2 mb-3 d-flex justify-content-center', data: { disable_with: "<div class='d-flex align-items-center'><span class='spinner-border spinner-border-sm mr-2'></span>Signing Up...</div>" } %>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<%= flash_messages %>
