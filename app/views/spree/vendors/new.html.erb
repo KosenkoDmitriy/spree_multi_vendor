@@ -13,22 +13,19 @@
             
             <div class="field" id="spree_vendor_name_field">
               <div class="form-group mb-4">
-                <%= f.label 'Store Name*', class: "spree-flat-label" %>
-                <%= f.text_field :name, required: false, placeholder: 'Vendor Name*', class: "form-control spree-flat-input #{error_class(@vendor, :name)}", value: params[:spree_vendor] && params[:spree_vendor][:name] ? params[:spree_vendor][:name] : '' %>
+                <%= f.text_field :name, required: false, placeholder: 'Shop Name', class: "form-control spree-flat-input #{error_class(@vendor, :name)}", value: params[:spree_vendor] && params[:spree_vendor][:name] ? params[:spree_vendor][:name] : '' %>
                 <div class="error"><%= show_errors(@vendor, :name) %></div>
               </div>
             </div>
 
-            <div class="form-group mb-5">
-              <label class="spree-flat-label" for="spree_vendor_user_email">Email*</label>
+            <div class="form-group mb-4">
               <input class="form-control spree-flat-input <%= error_class(@user, :email) %>" placeholder="Email" type="email" name="spree_vendor[user][email]"
-                id="spree_vendor_user_email"
+                id="spree_vendor_user_email" 
                 value="<%=params.include?(:spree_vendor) && params[:spree_vendor].include?(:user) ? params[:spree_vendor][:user][:email] : '' %>">
               <div class="error"><%= show_errors(@user, :email) %></div>
             </div>
 
             <div class="form-group mb-4">
-              <label class="spree-flat-label" for="spree_vendor_user_password">Password*</label>
               <input class="form-control spree-flat-input <%= error_class(@user, :password) %>" placeholder="Password" type="password" name="spree_vendor[user][password]"
                 id="spree_vendor_user_password"
                 value="<%=params.include?(:spree_vendor) && params[:spree_vendor].include?(:user) ? params[:spree_vendor][:user][:password] : '' %>">
@@ -36,7 +33,6 @@
             </div>
 
             <div class="form-group mb-5">
-              <label class="spree-flat-label" for="spree_vendor_user_password_confirmation">Password Confirmation*</label>
               <input class="form-control spree-flat-input <%= error_class(@user, :password_confirmation) %>" placeholder="Password Confirmation" type="password"
                 name="spree_vendor[user][password_confirmation]" id="spree_vendor_user_password_confirmation"
                 value="<%=params.include?(:spree_vendor) && params[:spree_vendor].include?(:user) ? params[:spree_vendor][:user][:password_confirmation] : '' %>">

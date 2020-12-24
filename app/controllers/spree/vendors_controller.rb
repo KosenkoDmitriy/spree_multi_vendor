@@ -30,7 +30,7 @@ class Spree::VendorsController < Spree::StoreController
       @user.valid?
       message = ''
       if @vendor.errors.any?
-        message += 'Store ' + @vendor.errors.full_messages.compact * ' and ' + '. '
+        message += 'Shop ' + @vendor.errors.full_messages.compact * ' and ' + '. '
       end
       if @user.errors.any?
         # message += @user.errors.full_messages.compact * ' and ' + '. '
