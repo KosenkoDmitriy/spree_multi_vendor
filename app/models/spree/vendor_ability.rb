@@ -48,7 +48,8 @@ class Spree::VendorAbility
   end
 
   def apply_option_type_permissions
-    cannot_display_model(Spree::OptionType)
+    # cannot_display_model(Spree::OptionType)
+    # can :read, Spree::OptionType, name: 'condition'
     can :manage, Spree::OptionType, vendor_id: @vendor_ids
     can :create, Spree::OptionType
   end
@@ -58,6 +59,7 @@ class Spree::VendorAbility
   end
 
   def apply_product_option_type_permissions
+    # can :read, Spree::OptionType, name: 'condition'
     can :modify, Spree::ProductOptionType, product: { vendor_id: @vendor_ids }
   end
 
